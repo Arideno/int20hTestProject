@@ -1,21 +1,14 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
+	"app/apiserver"
 	"log"
-	"net/http"
 )
 
 func main() {
-	router := gin.Default()
+	server := apiserver.NewServer()
 
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-
-	if err := router.Run(); err != nil {
+	if err := server.Start(); err != nil {
 		log.Fatal(err)
 	}
 }
