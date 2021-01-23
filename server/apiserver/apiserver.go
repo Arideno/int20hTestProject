@@ -26,8 +26,18 @@ func handleInfo() gin.HandlerFunc {
 		Products []product
 	}
 	return func(c *gin.Context) {
-		atb(func(products []product) {
-			c.JSON(200, response{Products: products})
+		store := c.Query("store")
+
+		switch store {
+		case "atb":
+			atb(func(products []product) {
+				c.JSON(200, response{Products: products})
+			})
+			return
+		}
+
+		c.JSON(400, gin.H{
+			"message": "no such store",
 		})
 	}
 }
