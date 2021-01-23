@@ -1,6 +1,6 @@
 <template>
   <div class="products-page">
-    <ProductsList :products="[]" />
+    <ProductsList :products="products" />
   </div>
 </template>
 
