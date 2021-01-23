@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ProductsPage from './pages/ProductsPage.vue';
+import ProductsPage from './pages/ProductsPage/ProductsPage.vue';
 
 export default {
   name: 'App',
