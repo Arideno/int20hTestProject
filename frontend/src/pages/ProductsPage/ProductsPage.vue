@@ -1,6 +1,6 @@
 <template>
   <div class="products-page">
-    <ProductsList :products="[]" />
+    <ProductsList :products="products" />
   </div>
 </template>
 
@@ -14,13 +14,13 @@ export default {
   components: {
     ProductsList,
   },
-
-  async setup() {
-    const products = await ProductService.getProducts();
-
+  data() {
     return {
-      products,
-    } 
+      products: []
+    }
+  },
+  async mounted() {
+    this.products = await ProductService.getProducts();
   }
 }
 </script>

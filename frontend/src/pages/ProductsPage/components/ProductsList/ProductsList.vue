@@ -16,5 +16,8 @@ export default {
   components: {
     Product,
   },
+  props: {
+    products: Array
+  }
 }
 </script>

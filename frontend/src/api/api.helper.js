@@ -1,10 +1,11 @@
 import axios from 'axios';
-import { stringifyParams } from '../helpers/qs.helper';
+import { stringifyParams } from '@/helpers/qs.helper';
 
-const BASE_URL = process.env.VUE_APP_API_URL || '/api';
+const BASE_URL = 'http://' + process.env.VUE_APP_API_URL || '/v1';
 
 class Api {
   constructor() {
+    console.log(BASE_URL)
     this.instance = axios.create({
       baseURL: BASE_URL,
       headers: {
