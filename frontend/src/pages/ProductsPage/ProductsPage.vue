@@ -6,21 +6,25 @@
 
 <script>
 import ProductsList from './components/ProductsList/ProductsList.vue';
-
 import ProductService from 'src/api/services/product.service';
+
+import { onMounted, ref } from 'vue'
 
 export default {
   name: 'ProductsPage',
   components: {
     ProductsList,
   },
-  data() {
+  setup() {
+    let products = ref([])
+
+    onMounted(async () => {
+      products.value = await ProductService.getProducts();
+    })
+
     return {
-      products: []
+      products
     }
-  },
-  async mounted() {
-    this.products = await ProductService.getProducts();
   }
 }
 </script>
