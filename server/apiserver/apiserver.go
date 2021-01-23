@@ -24,7 +24,7 @@ func (s *APIServer) configureRouter() {
 	s.router.Use(cors.New(cors.Config{
 		AllowAllOrigins: true,
 		AllowMethods: []string{"GET"},
-		AllowHeaders: []string{"Origin"},
+		AllowHeaders: []string{"Origin","Content-Type"},
 	}))
 
 	v1 := s.router.Group("/v1")
