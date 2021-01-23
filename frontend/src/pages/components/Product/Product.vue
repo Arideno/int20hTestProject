@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="product">
     Name: {{ product.name }}
     Price: {{ product.price }}
   </div>
@@ -9,7 +9,7 @@
 export default {
   name: 'Product',
   props: {
-    product: Object,
+    product: Object
   }
 }
 </script>
