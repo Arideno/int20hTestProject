@@ -1,6 +1,9 @@
 package apiserver
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+)
 
 type APIServer struct {
 	router *gin.Engine
@@ -17,6 +20,13 @@ func (s *APIServer) Start() error {
 }
 
 func (s *APIServer) configureRouter() {
+
+	s.router.Use(cors.New(cors.Config{
+		AllowAllOrigins: true,
+		AllowMethods: []string{"GET"},
+		AllowHeaders: []string{"Origin"},
+	}))
+
 	v1 := s.router.Group("/v1")
 	v1.GET("/info", handleInfo())
 }
