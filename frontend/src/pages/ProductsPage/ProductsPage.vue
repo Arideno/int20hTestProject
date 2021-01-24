@@ -24,7 +24,7 @@ export default {
   components: {
     ProductsGrid,
     SideFilters,
-    Section
+    Section,
   },
   setup() {
     let products = ref([]);

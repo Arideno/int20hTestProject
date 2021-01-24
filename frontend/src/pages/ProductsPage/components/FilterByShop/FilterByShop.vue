@@ -36,7 +36,7 @@ export default {
     onShopSelect: {
       type: Function,
       required: true,
-    }
+    },
   },
 };
 </script>

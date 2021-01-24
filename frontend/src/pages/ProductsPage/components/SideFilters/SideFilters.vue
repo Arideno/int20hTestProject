@@ -29,7 +29,7 @@ export default {
   components: {
     Accordion,
     AccordionTab,
-    FilterByShop
+    FilterByShop,
   },
 
   setup() {
@@ -44,6 +44,6 @@ export default {
       selectedShops: [],
       onShopSelect: () => {},
     };
-  }
+  },
 };
 </script>
