@@ -2,23 +2,22 @@
   <div class="product-card-wrapper">
     <Card style="position: relative;">
       <template #header>
-        <img
-          :src="product.image"
-          :alt="product.name"
-        >
+        <a :href="product.url">
+          <img
+            :src="product.image"
+            :alt="product.name"
+          >
+        </a>
       </template>
-      <template #title>
+      <template #title >
+        <div class="p-d-flex title">
         <span class="product-store"> {{ product.store }} </span>
-        -
-        <span class="product-price"> ₴{{ product.price }} </span>
-      </template>
+        <span class="product-price"> {{ product.price }} ₴ </span>
+      </div></template>
       <template #content>
-        <div class="product-name">
+        <a :href="product.url" class="product-name">
           {{ product.name }}
-        </div>
-      </template>
-      <template #footer>
-        <a :href="product.url" class="link">To store</a>
+        </a>
       </template>
     </Card>
   </div>

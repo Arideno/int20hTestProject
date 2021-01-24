@@ -15,5 +15,28 @@
     position: absolute;
     right: 15px;
     bottom: 6px;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .title{
+    justify-content: space-between
+  }
+
+  .link:hover{
+    background: #276ca3;
+    color: #ffffff;
+    border-color: #0d89ec;
+  }
+
+  .product-name{
+    text-decoration: none;
+    color: #495057
+  }
+  
+  .product-name:hover{
+    color: #f03527;
   }
 }
