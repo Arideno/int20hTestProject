@@ -1,10 +1,12 @@
 <template>
-  <div class="products-page p-grid">
-    <SideFilters class="p-xl-2" />
-    <ProductsGrid
-      class="p-xl-10"
-      :products="products"
-    />
+  <div class="products-page">
+    <Section class="p-grid">
+      <SideFilters class="p-xl-2" />
+      <ProductsGrid
+        class="p-xl-10"
+        :products="products"
+      />
+    </Section>
   </div>
 </template>
 
@@ -15,12 +17,14 @@ import ProductService from 'src/api/services/product.service';
 
 import ProductsGrid from './components/ProductsGrid/ProductsGrid.vue';
 import SideFilters from './components/SideFilters/SideFilters.vue';
+import Section from 'src/components/Section/Section.vue';
 
 export default {
   name: 'ProductsPage',
   components: {
     ProductsGrid,
     SideFilters,
+    Section
   },
   setup() {
     let products = ref([]);
