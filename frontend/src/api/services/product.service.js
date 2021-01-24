@@ -13,7 +13,7 @@ export default class ProductService {
       image: Image,
       url: Url,
       store: Store,
-    }
+    };
   }
 
   static async getProducts() {

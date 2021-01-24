@@ -4,4 +4,4 @@ export default ProductModel = {
   image: String,
   url: String,
   store: String,
-}
+};

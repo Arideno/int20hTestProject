@@ -1,9 +1,13 @@
 import qs from 'qs';
 
-export const stringifyParams = (params) =>
-  qs.stringify(params, { arrayFormat: 'comma', encodeValuesOnly: true, encode: false });
+export const stringifyParams = params =>
+  qs.stringify(params, {
+    arrayFormat: 'comma',
+    encodeValuesOnly: true,
+    encode: false,
+  });
 
-export const parseUrlParams = (params) => {
+export const parseUrlParams = params => {
   const parsed = qs.parse(params, {
     comma: true,
     ignoreQueryPrefix: true,
@@ -28,7 +32,7 @@ export const parseUrlParams = (params) => {
   return parsed;
 };
 
-export const updateQuerystringParams = (params) => {
+export const updateQuerystringParams = params => {
   const newUrlParams = stringifyParams(params);
   window.history.replaceState(null, '', `?${newUrlParams}`);
 };

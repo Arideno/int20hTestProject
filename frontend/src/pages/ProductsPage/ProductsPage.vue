@@ -23,8 +23,8 @@ export default {
     });
 
     return {
-      products
-    }
-  }
-}
+      products,
+    };
+  },
+};
 </script>

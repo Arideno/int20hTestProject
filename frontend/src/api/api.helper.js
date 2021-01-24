@@ -6,7 +6,7 @@ const BASE_URL = prependHttpIfNotExists(process.env.VUE_APP_API_URL) || '/v1';
 
 class Api {
   constructor() {
-    console.log(BASE_URL)
+    console.log(BASE_URL);
     this.instance = axios.create({
       baseURL: BASE_URL,
       headers: {
