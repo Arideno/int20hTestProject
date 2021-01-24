@@ -8,7 +8,7 @@
 import ProductsList from './components/ProductsList/ProductsList.vue';
 import ProductService from 'src/api/services/product.service';
 
-import { onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue';
 
 export default {
   name: 'ProductsPage',
@@ -16,11 +16,11 @@ export default {
     ProductsList,
   },
   setup() {
-    let products = ref([])
+    let products = ref([]);
 
     onMounted(async () => {
       products.value = await ProductService.getProducts();
-    })
+    });
 
     return {
       products
