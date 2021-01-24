@@ -1,19 +1,26 @@
 <template>
-  <div class="products-page">
-    <ProductsList :products="products" />
+  <div class="products-page p-grid">
+    <SideFilters class="p-xl-2" />
+    <ProductsGrid
+      class="p-xl-10"
+      :products="products"
+    />
   </div>
 </template>
 
 <script>
-import ProductsList from './components/ProductsList/ProductsList.vue';
+import { onMounted, ref } from 'vue';
+
 import ProductService from 'src/api/services/product.service';
 
-import { onMounted, ref } from 'vue';
+import ProductsGrid from './components/ProductsGrid/ProductsGrid.vue';
+import SideFilters from './components/SideFilters/SideFilters.vue';
 
 export default {
   name: 'ProductsPage',
   components: {
-    ProductsList,
+    ProductsGrid,
+    SideFilters,
   },
   setup() {
     let products = ref([]);
