@@ -1,6 +1,6 @@
 <template>
   <div class="product-card-wrapper">
-    <Card>
+    <Card style="position: relative;">
       <template #header>
         <img
           :src="product.image"
@@ -16,6 +16,9 @@
         <div class="product-name">
           {{ product.name }}
         </div>
+      </template>
+      <template #footer>
+        <a :href="product.url" class="link">To store</a>
       </template>
     </Card>
   </div>
