@@ -1,7 +1,11 @@
 package apiserver
 
 import (
+	"bytes"
+	"encoding/json"
 	"github.com/gocolly/colly"
+	"log"
+	"net/http"
 	"strconv"
 	"strings"
 )
@@ -73,4 +77,37 @@ func atb(result func([]product)) {
 	})
 
 	_ = c.Visit("https://zakaz.atbmarket.com/search/531?text=гречана")
+}
+
+func Silpo()  []product {
+	data := map[string]interface{}{ "customFilter": "гречана крупа", "filialId": 2382, "From":1}
+	values := map[string]interface{}{ "method":"GetSimpleCatalogItems", "data": data}
+	jsonData, err := json.Marshal(values)
+	if err != nil {
+		log.Panic(err)
+	}
+	resp, err := http.Post("https://api.catalog.ecom.silpo.ua/api/2.0/exec/EcomCatalogGlobal", "application/json", bytes.NewBuffer(jsonData))
+	if err != nil {
+		log.Panic(err)
+	}
+	var res map[string]interface{}
+
+	err = json.NewDecoder(resp.Body).Decode(&res)
+	if err != nil {
+		log.Panic(err)
+	}
+	allItems := res["items"].([]interface{})
+
+	products := make([]product, 0)
+	for index := range allItems {
+		item := allItems[index].(map[string]interface{})
+		products = append(products, product{
+			Name:  item["name"].(string),
+			Price: item["price"].(float64),
+			Image: item["mainImage"].(string),
+			Url:   "https://shop.silpo.ua/detail/" + strconv.Itoa(int(item["id"].(float64))),
+			Store: "silpo",
+		})
+	}
+	return products
 }
