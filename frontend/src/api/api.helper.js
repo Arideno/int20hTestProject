@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { stringifyParams } from '@/helpers/qs.helper';
+import { stringifyParams } from 'src/helpers/qs.helper';
+import { prependHttpIfNotExists } from 'src/helpers/url.helper';
 
-const BASE_URL = 'http://' + process.env.VUE_APP_API_URL || '/v1';
+const BASE_URL = prependHttpIfNotExists(process.env.VUE_APP_API_URL) || '/v1';
 
 class Api {
   constructor() {
