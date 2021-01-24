@@ -2,14 +2,9 @@
   "root": true,
   "extends": [
     "plugin:vue/vue3-recommended",
-    "prettier"
   ],
-  "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error",
     "object-curly-spacing": ["warn", "always"],
-    "vue/max-attributes-per-line": ["off"],
-    "vue/html-self-closing": ["off"],
     "no-unused-vars": [
       "warn",
       {
@@ -31,6 +26,7 @@
       {
         "allowForLoopAfterthoughts": true
       }
-    ]
+    ],
+    "semi": "error"
   }
 }

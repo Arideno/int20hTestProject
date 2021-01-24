@@ -1,6 +1,11 @@
 <template>
   <div class="products-grid p-grid">
-    <Product v-for="product of products" :key="product.name" class="p-col-12 p-md-3 p-lg-3" :product="product" />
+    <Product
+      v-for="product of products"
+      :key="product.name"
+      class="p-col-12 p-md-3 p-lg-3"
+      :product="product"
+    />
   </div>
 </template>
 
@@ -13,7 +18,10 @@ export default {
     Product,
   },
   props: {
-    products: Array,
+    products: {
+      type: Array,
+      required: true,
+    },
   },
 };
 </script>
