@@ -1,7 +1,10 @@
 <template>
   <div class="products-page">
     <Section class="p-grid">
-      <SideFilters class="p-xl-2" />
+      <SideFilters
+        class="p-xl-2"
+        @on-filter-change="onFilterChange"
+      />
       <ProductsGrid
         class="p-xl-10"
         :products="products"
@@ -27,7 +30,7 @@ export default {
     Section,
   },
   setup() {
-    let products = ref([]);
+    const products = ref([]);
 
     onMounted(async () => {
       products.value = await ProductService.getProducts();
@@ -36,6 +39,13 @@ export default {
     return {
       products,
     };
+  },
+
+  methods: {
+    async onFilterChange(filter) {
+      const products = await ProductService.getProducts(filter);
+      this.products = products;
+    },
   },
 };
 </script>

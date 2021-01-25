@@ -2,11 +2,17 @@ export default class ShopService {
   static async getShops() {
     return [
       {
-        name: 'atb',
+        name: 'ATB',
+        id: 'atb',
       },
       {
-        name: 'auchan'
-      }
+        name: 'Silpo',
+        id: 'silpo',
+      },
+      {
+        name: 'Auchan',
+        id: 'auchan',
+      },
     ];
   }
 }

@@ -2,40 +2,44 @@
   <div class="filter-by-shop">
     <div
       v-for="shop of shops"
-      :key="shop.name"
-      class="p-field-checkbox"
+      :key="shop.id"
+      class="p-field-radiobutton"
     >
-      <Checkbox
-        :id="shop.name"
+      <RadioButton
+        :id="shop.id"
         name="shop"
         :value="shop"
-        @select="onShopSelect"
+        :model-value="selectedShop"
+        @change="onShopSelect(shop)"
       />
-      <label :for="shop.name">{{ shop.name }}</label>
+      <label :for="shop.id">{{ shop.name }}</label>
     </div>
   </div>
 </template>
 
 <script>
-import Checkbox from 'primevue/checkbox';
+import RadioButton from 'primevue/radiobutton';
 
 export default {
   name: 'FilterByShop',
   components: {
-    Checkbox,
+    RadioButton,
   },
   props: {
     shops: {
       type: Array,
       required: true,
     },
-    selectedShops: {
-      type: Array,
-      required: true,
+    selectedShop: {
+      type: [Object, null],
+      default: null,
     },
-    onShopSelect: {
-      type: Function,
-      required: true,
+  },
+  emits: ['on-shop-select'],
+
+  methods: {
+    onShopSelect(shop) {
+      this.$emit('on-shop-select', shop);
     },
   },
 };

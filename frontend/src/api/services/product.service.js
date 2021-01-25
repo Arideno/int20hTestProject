@@ -16,8 +16,10 @@ export default class ProductService {
     };
   }
 
-  static async getProducts() {
-    const { Products: products } = await api.get(endpoint, { store: 'atb' });
+  static async getProducts(filter = {}) {
+    const { Products: products } = await api.get(endpoint, {
+      store: filter.shop?.id || 'atb',
+    });
     return products.map(ProductService.mapToProductModel);
   }
 }
