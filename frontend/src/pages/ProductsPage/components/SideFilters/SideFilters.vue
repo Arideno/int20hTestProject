@@ -2,13 +2,18 @@
   <div class="side-filters p-d-flex p-flex-column">
     <Accordion
       :multiple="true"
-      :active-index="[0]"
+      :active-index="[0, 1]"
     >
       <AccordionTab header="Shop">
         <FilterByShop
           :shops="shops"
           :selected-shop="selectedShop"
           @on-shop-select="onShopSelect"
+        />
+      </AccordionTab>
+      <AccordionTab header="Price">
+        <FilterByPrice
+          @on-price-select="onPriceSelect"
         />
       </AccordionTab>
     </Accordion>
@@ -24,6 +29,7 @@ import { parseUrlParams, updateQuerystringParam } from 'src/helpers/qs.helper';
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import FilterByShop from '../FilterByShop/FilterByShop.vue';
+import FilterByPrice from '../FilterByPrice/FilterByPrice.vue';
 
 export default {
   name: 'SideFilters',
@@ -31,6 +37,7 @@ export default {
     Accordion,
     AccordionTab,
     FilterByShop,
+    FilterByPrice,
   },
   emits: ['on-filter-change'],
 
@@ -73,7 +80,8 @@ export default {
       this.filters.shop = shop;
       this.onFilterChange();
     },
-    onPriceChange: function({ min, max }) {
+    onPriceSelect: function({ min, max }) {
+      console.log('onPriceSelect', min, max);
       updateQuerystringParam(['price', 'min'], min);
       updateQuerystringParam(['price', 'max'], max);
       this.filters.price = { min, max };

@@ -17,9 +17,22 @@ export default class ProductService {
   }
 
   static async getProducts(filter = {}) {
+    const minPrice = filter.price?.min;
+    const maxPrice = filter.price?.max;
     const { Products: products } = await api.get(endpoint, {
       store: filter.shop?.id || 'atb',
     });
-    return products.map(ProductService.mapToProductModel);
+
+    const isPriceValid = product => {
+      if (minPrice && product.price < minPrice) {
+        return false;
+      }
+      if (maxPrice && product.price > maxPrice) {
+        return false;
+      }
+      return true;
+    };
+
+    return products.map(ProductService.mapToProductModel).filter(isPriceValid);
   }
 }
