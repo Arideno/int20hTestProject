@@ -1,5 +1,5 @@
 <template>
-  <div class="side-filters p-d-flex p-flex-column">
+  <div class="side-filters p-d-flex p-flex-column p-py-0">
     <Accordion
       :multiple="true"
       :active-index="[0, 1]"

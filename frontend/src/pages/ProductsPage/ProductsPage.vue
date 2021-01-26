@@ -1,17 +1,25 @@
 <template>
   <div class="products-page">
-    <SortByPrice
-      @on-price-sort-option-change="onPriceSortOptionChange"
-    />
-    <Section class="p-grid">
-      <SideFilters
-        class="p-xl-2"
-        @on-filter-change="onFilterChange"
-      />
-      <ProductsGrid
-        class="p-xl-10"
-        :products="products"
-      />
+    <Section>
+      <Panel class="p-grid">
+        <template
+          #header
+        >
+          <SortByPrice
+            @on-price-sort-option-change="onPriceSortOptionChange"
+          />
+        </template>
+        <div class="p-d-flex">
+          <SideFilters
+            class="p-xl-2"
+            @on-filter-change="onFilterChange"
+          />
+          <ProductsGrid
+            class="p-xl-10"
+            :products="products"
+          />
+        </div>
+      </Panel>
     </Section>
   </div>
 </template>
@@ -21,6 +29,7 @@ import { ref, reactive } from 'vue';
 
 import ProductService from 'src/api/services/product.service';
 
+import Panel from 'primevue/panel';
 import ProductsGrid from './components/ProductsGrid/ProductsGrid.vue';
 import SideFilters from './components/SideFilters/SideFilters.vue';
 import Section from 'src/components/Section/Section.vue';
@@ -33,6 +42,7 @@ export default {
     SideFilters,
     Section,
     SortByPrice,
+    Panel,
   },
   setup() {
     const products = ref([]);
@@ -86,3 +96,5 @@ export default {
   },
 };
 </script>
+
+<style src="./styles.scss" lang="scss" scoped></style>

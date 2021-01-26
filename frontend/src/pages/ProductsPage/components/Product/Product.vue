@@ -6,16 +6,21 @@
           <img
             :src="product.image"
             :alt="product.name"
+            class="product-image"
           >
         </a>
       </template>
-      <template #title >
+      <template #title>
         <div class="p-d-flex title">
-        <span class="product-store"> {{ product.store }} </span>
-        <span class="product-price"> {{ product.price }} ₴ </span>
-      </div></template>
+          <span class="product-store"> {{ product.store }} </span>
+          <span class="product-price"> {{ product.price }} ₴ </span>
+        </div>
+      </template>
       <template #content>
-        <a :href="product.url" class="product-name">
+        <a
+          :href="product.url"
+          class="product-name"
+        >
           {{ product.name }}
         </a>
       </template>
