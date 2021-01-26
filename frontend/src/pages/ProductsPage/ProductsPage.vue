@@ -9,7 +9,7 @@
             @on-price-sort-option-change="onPriceSortOptionChange"
           />
         </template>
-        <div class="p-d-flex">
+        <div class="p-d-flex products-page-content">
           <SideFilters
             class="p-xl-2"
             @on-filter-change="onFilterChange"
