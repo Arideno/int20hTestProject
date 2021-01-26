@@ -16,11 +16,12 @@ export default class ProductService {
     };
   }
 
-  static async getProducts(filter = {}) {
-    const minPrice = filter.price?.min;
-    const maxPrice = filter.price?.max;
+  static async getProducts(options = {}) {
+    const minPrice = options.price?.min;
+    const maxPrice = options.price?.max;
+    const priceSortOption = options.sort?.price;
     const { Products: products } = await api.get(endpoint, {
-      store: filter.shop?.id || 'atb',
+      store: options.shop?.id || 'atb',
     });
 
     const isPriceValid = product => {
@@ -33,6 +34,12 @@ export default class ProductService {
       return true;
     };
 
-    return products.map(ProductService.mapToProductModel).filter(isPriceValid);
+    return products
+      .map(ProductService.mapToProductModel)
+      .filter(isPriceValid)
+      .sort((product1, product2) => {
+        if (priceSortOption === 'asc') return product1.price - product2.price;
+        else return product2.price - product1.price;
+      });
   }
 }

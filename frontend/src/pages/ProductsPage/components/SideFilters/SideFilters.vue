@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { onMounted, ref, reactive, toRefs, watchEffect } from 'vue';
+import { onMounted, ref, reactive, toRefs } from 'vue';
 
 import ShopService from 'src/api/services/shop.service';
 import { parseUrlParams, updateQuerystringParam } from 'src/helpers/qs.helper';
@@ -85,8 +85,6 @@ export default {
 
       onShopSelect(filters.shop);
       onPriceSelect(filters.price);
-
-      emit('on-filter-change', filters);
     });
 
     const { shop: selectedShop, price } = toRefs(filters);
