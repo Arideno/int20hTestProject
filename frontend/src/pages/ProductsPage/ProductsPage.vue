@@ -1,6 +1,14 @@
 <template>
   <div class="products-page">
     <Section>
+      <Panel class="p-list">
+        <template
+          #header
+        >
+          3 cheapest products
+        </template>
+        <TopProductsList />
+      </Panel>
       <Panel class="p-grid">
         <template
           #header
@@ -32,6 +40,7 @@ import ProductService from 'src/api/services/product.service';
 
 import Panel from 'primevue/panel';
 import ProductsGrid from './components/ProductsGrid/ProductsGrid.vue';
+import TopProductsList from './components/TopProductsList/TopProductsList.vue';
 import SideFilters from './components/SideFilters/SideFilters.vue';
 import Section from 'src/components/Section/Section.vue';
 import SortByPrice from './components/SortByPrice/SortByPrice.vue';
@@ -44,6 +53,7 @@ export default {
     Section,
     SortByPrice,
     Panel,
+    TopProductsList,
   },
   setup() {
     const products = ref([]);

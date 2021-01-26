@@ -16,8 +16,8 @@ export default class TopProductsService {
     };
   }
 
-  static async getTopProducts(options = {}) {
-    const { Products: products } = await api.get(endpoint);
-    return products;
+  static async getTopProducts() {
+    const products = await api.get(endpoint);
+    return products.map(TopProductsService.mapToProductModel);
   }
 }
