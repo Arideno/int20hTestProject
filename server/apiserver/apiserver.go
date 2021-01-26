@@ -3,6 +3,7 @@ package apiserver
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"sort"
 )
 
 type APIServer struct {
@@ -28,6 +29,42 @@ func (s *APIServer) configureRouter() {
 
 	v1 := s.router.Group("/v1")
 	v1.GET("/info", handleInfo())
+	v1.GET("/top", handleTop())
+}
+
+func handleTop() gin.HandlerFunc {
+	type response struct {
+		Products []product
+	}
+	return func(c *gin.Context) {
+		atb(func(atbProducts []product) {
+			allProducts := make([]product, 0)
+			for _, p := range atbProducts {
+				allProducts = append(allProducts, p)
+			}
+
+			silpoProducts := Silpo()
+			for _, p := range silpoProducts {
+				allProducts = append(allProducts, p)
+			}
+
+			auchanProducts := Auchan()
+			for _, p := range auchanProducts {
+				allProducts = append(allProducts, p)
+			}
+
+			sort.Slice(allProducts, func(i, j int) bool {
+				return allProducts[i].Price < allProducts[j].Price
+			})
+
+			c.JSON(200, allProducts[:3])
+			return
+		})
+
+		c.JSON(400, gin.H{
+			"message": "error",
+		})
+	}
 }
 
 func handleInfo() gin.HandlerFunc {
