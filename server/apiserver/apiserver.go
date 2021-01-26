@@ -58,11 +58,6 @@ func handleTop() gin.HandlerFunc {
 			})
 
 			c.JSON(200, allProducts[:3])
-			return
-		})
-
-		c.JSON(400, gin.H{
-			"message": "error",
 		})
 	}
 }
