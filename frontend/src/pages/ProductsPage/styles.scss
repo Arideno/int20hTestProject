@@ -1,10 +1,14 @@
 .products-page {
-  .p-gri, :global(.p-toggleable-content) {
+  :global(.p-toggleable-content) {
     width: 100%;
   }
 
   :global(.p-panel-header) {
     width: 100%;
     justify-content: flex-end;
+  }
+
+  .top-products-header {
+    font-size: 1.5rem;
   }
 }

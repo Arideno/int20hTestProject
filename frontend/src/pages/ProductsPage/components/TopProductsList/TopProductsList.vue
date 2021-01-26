@@ -1,5 +1,5 @@
 <template>
-  <div class="top-products-list">
+  <div class="top-products-list p-d-flex">
     <Product
       v-for="product of topProducts"
       :key="product.name"

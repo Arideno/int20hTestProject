@@ -1,11 +1,11 @@
 <template>
   <div class="products-page">
     <Section>
-      <Panel class="p-list">
+      <Panel class="p-grid">
         <template
           #header
         >
-          3 cheapest products
+          <span class="top-products-header">3 cheapest products</span>
         </template>
         <TopProductsList />
       </Panel>
