@@ -53,16 +53,14 @@ export default {
       selectedSortOption.value = priceSortOption.value;
     };
 
-    onMounted(() => {
+    onMounted(async () => {
       const { sort: { price: priceSortType } = {} } = parseUrlParams();
       if (!priceSortType) {
-        selectedSortOption.value = sortOptions[0];
+        selectedSortOption.value = sortOptions[1];
       } else {
         const selectedSortOptionFromUrl = sortOptions.find(option => option.type === priceSortType) || {};
         selectedSortOption.value = selectedSortOptionFromUrl;
       }
-
-      onPriceSortOptionChange(selectedSortOption);
     });
 
     return {

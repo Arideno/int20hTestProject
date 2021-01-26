@@ -58,6 +58,7 @@ export default {
     };
 
     function onShopSelect(shop) {
+      console.log('shopp', shop);
       updateQuerystringParam(['shop', 'id'], shop.id);
       filters.shop = shop;
       onFilterChange();
@@ -82,9 +83,6 @@ export default {
       }
       filters.price = price;
       filters.shop = shops.value.find(shop => shop.id === shopID);
-
-      onShopSelect(filters.shop);
-      onPriceSelect(filters.price);
     });
 
     const { shop: selectedShop, price } = toRefs(filters);

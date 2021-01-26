@@ -25,8 +25,9 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 
+import { parseUrlParams } from 'src/helpers/qs.helper';
 import ProductService from 'src/api/services/product.service';
 
 import Panel from 'primevue/panel';
@@ -58,35 +59,46 @@ export default {
         price: null,
       },
     });
+    
+    function getProductsSearchOptions() {
+      return {
+        shop: {
+          id: filters?.value?.shop?.id,
+        },
+        price: {
+          min: filters?.value?.price?.min,
+          max: filters?.value?.price?.max,
+        },
+        sort: {
+          price: sort?.value?.price,
+        },
+      };
+    };
+
+    async function updateProducts() {
+      products.value = await ProductService.getProducts(getProductsSearchOptions());
+    };
+
+    onMounted(() => {
+      const { shop, price, sort: sortFromUrl } = parseUrlParams();
+      filters.value = { shop, price };
+      sort.value = sortFromUrl;
+      updateProducts(); 
+    });
 
     return {
       products,
       filters,
       sort,
+      updateProducts,
+      getProductsSearchOptions,
     };
   },
 
   methods: {
-    getProductsSearchOptions() {
-      return {
-        shop: {
-          id: this.filters?.value?.shop?.id,
-        },
-        price: {
-          min: this.filters?.value?.price?.min,
-          max: this.filters?.value?.price?.max,
-        },
-        sort: {
-          price: this.sort?.value?.price,
-        },
-      };
-    },
-    async updateProducts() {
-      const products = await ProductService.getProducts(this.getProductsSearchOptions());
-      this.products = products;
-    },
     async onFilterChange(filters) {
-      this.filters.value = filters;
+      this.filters.value.shop = filters.shop;
+      this.filters.value.price = filters.price;
       await this.updateProducts();
     },
     async onPriceSortOptionChange(priceSortOption) {
