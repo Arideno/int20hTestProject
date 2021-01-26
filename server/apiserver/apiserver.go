@@ -15,7 +15,6 @@ func NewServer() *APIServer {
 
 func (s *APIServer) Start() error {
 	s.configureRouter()
-
 	return s.router.Run()
 }
 
@@ -44,6 +43,13 @@ func handleInfo() gin.HandlerFunc {
 				c.JSON(200, response{Products: products})
 			})
 			return
+		case "silpo":
+			c.JSON(200, response{Products: Silpo()})
+			return
+		case "auchan":
+			c.JSON(200, response{Products: Auchan()})
+			return
+
 		}
 
 		c.JSON(400, gin.H{

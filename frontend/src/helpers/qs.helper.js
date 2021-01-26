@@ -7,7 +7,7 @@ export const stringifyParams = params =>
     encode: false,
   });
 
-export const parseUrlParams = params => {
+export const parseUrlParams = (params = window.location.search) => {
   const parsed = qs.parse(params, {
     comma: true,
     ignoreQueryPrefix: true,
@@ -37,8 +37,16 @@ export const updateQuerystringParams = params => {
   window.history.replaceState(null, '', `?${newUrlParams}`);
 };
 
-export const updateQuerystringParam = (key, value) => {
+export const updateQuerystringParam = (nestedKeys, value) => {
   const oldParams = parseUrlParams(window.location.search);
-  const newUrlParams = stringifyParams({ ...oldParams, [key]: value });
+
+  const setNestedProp = (obj = {}, [first, ...rest] , value) => ({
+    ...obj,
+    [first]: rest.length
+      ? setNestedProp(obj[first], rest, value)
+      : value,
+  });
+
+  const newUrlParams = stringifyParams(setNestedProp(oldParams, nestedKeys, value));
   window.history.replaceState(null, '', `?${newUrlParams}`);
 };
