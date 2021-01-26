@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 import ProductService from 'src/api/services/product.service';
 
@@ -31,10 +31,6 @@ export default {
   },
   setup() {
     const products = ref([]);
-
-    onMounted(async () => {
-      products.value = await ProductService.getProducts();
-    });
 
     return {
       products,

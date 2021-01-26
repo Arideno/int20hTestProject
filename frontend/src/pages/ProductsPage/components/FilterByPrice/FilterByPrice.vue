@@ -34,13 +34,11 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 import Slider from 'primevue/slider';
 import InputNumber from 'primevue/inputnumber';
 import Button from 'primevue/button';
-
-import { parseUrlParams } from 'src/helpers/qs.helper';
 
 export default {
   name: 'FilterByPrice',
@@ -49,22 +47,28 @@ export default {
     InputNumber,
     Button,
   },
+  props: {
+    min: {
+      type: [Number, null],
+    },
+    max: {
+      type: [Number, null],
+    },
+  },
   emits: ['on-price-select'],
 
-  setup() {
-    const { price: { min, max } = {} } = parseUrlParams();
+  setup(props) {
+    const minPrice = ref(props.min);
+    const maxPrice = ref(props.max);
 
-    const minPrice = ref(min || 0);
-    const maxPrice = ref(max || 100);
+    watchEffect(() => {
+      minPrice.value = props.min;
+      maxPrice.value = props.max;
+    });
 
     return {
       minPrice,
       maxPrice,
-    };
-  },
-  data() {
-    return {
-      priceRange: [this.minPrice, this.maxPrice],
     };
   },
 

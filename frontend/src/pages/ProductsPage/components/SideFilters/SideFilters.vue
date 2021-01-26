@@ -13,6 +13,8 @@
       </AccordionTab>
       <AccordionTab header="Price">
         <FilterByPrice
+          :min="price.min"
+          :max="price.max"
           @on-price-select="onPriceSelect"
         />
       </AccordionTab>
@@ -21,7 +23,7 @@
 </template>
 
 <script>
-import { onMounted, ref, reactive, toRefs } from 'vue';
+import { onMounted, ref, reactive, toRefs, watchEffect } from 'vue';
 
 import ShopService from 'src/api/services/shop.service';
 import { parseUrlParams, updateQuerystringParam } from 'src/helpers/qs.helper';
@@ -41,27 +43,50 @@ export default {
   },
   emits: ['on-filter-change'],
 
-  setup() {
+  setup(_, { emit }) {
     const shops = ref([]);
     const filters = reactive({
       shop: null,
       price: {
-        min: 0,
-        max: 100,
+        min: null,
+        max: null,
       },
     });
+
+    function onFilterChange() {
+      emit('on-filter-change', filters);
+    };
+
+    function onShopSelect(shop) {
+      updateQuerystringParam(['shop', 'id'], shop.id);
+      filters.shop = shop;
+      onFilterChange();
+    };
+
+    function onPriceSelect({ min, max }) {
+      updateQuerystringParam(['price', 'min'], min);
+      updateQuerystringParam(['price', 'max'], max);
+      filters.price = { min, max };
+      onFilterChange();
+    };
 
     onMounted(async () => {
       shops.value = await ShopService.getShops();
 
-      const { shop: { id: shopID } = {}, price = {} } = parseUrlParams();
-      // console.log('parseUrlParams', parseUrlParams(), shopID,shops.value.find(shop => shop.id === shopID));
-      // filters = {
-      //   shop: shops.value.find(shop => shop.id === shopID),
-      //   price,
-      // };
+      let { shop: { id: shopID } = {}, price } = parseUrlParams();
+      if (!shopID) {
+        shopID = shops.value[0]?.id;
+      }
+      if (!price) {
+        price = { min: 0, max: 100 };
+      }
+      filters.price = price;
       filters.shop = shops.value.find(shop => shop.id === shopID);
-      console.log(filters, shops.value.find(shop => shop.id === shopID));
+
+      onShopSelect(filters.shop);
+      onPriceSelect(filters.price);
+
+      emit('on-filter-change', filters);
     });
 
     const { shop: selectedShop, price } = toRefs(filters);
@@ -71,25 +96,10 @@ export default {
       selectedShop,
       price,
       filters,
+      onShopSelect,
+      onPriceSelect,
+      onFilterChange,
     };
-  },
-
-  methods: {
-    onShopSelect: function(shop) {
-      updateQuerystringParam(['shop', 'id'], shop.id);
-      this.filters.shop = shop;
-      this.onFilterChange();
-    },
-    onPriceSelect: function({ min, max }) {
-      console.log('onPriceSelect', min, max);
-      updateQuerystringParam(['price', 'min'], min);
-      updateQuerystringParam(['price', 'max'], max);
-      this.filters.price = { min, max };
-      this.onFilterChange();
-    },
-    onFilterChange() {
-      this.$emit('on-filter-change', this.filters);
-    },
   },
 };
 </script>

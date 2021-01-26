@@ -7,9 +7,9 @@
     >
       <RadioButton
         :id="shop.id"
+        :model-value="selectedShop"
         name="shop"
         :value="shop"
-        :model-value="selectedShop"
         @change="onShopSelect(shop)"
       />
       <label :for="shop.id">{{ shop.name }}</label>
@@ -28,11 +28,9 @@ export default {
   props: {
     shops: {
       type: Array,
-      required: true,
     },
     selectedShop: {
       type: [Object, null],
-      default: null,
     },
   },
   emits: ['on-shop-select'],
