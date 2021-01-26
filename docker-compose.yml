@@ -9,3 +9,10 @@ services:
     volumes:
       - ./server:/go/src/app
     command: sh -c "go build . && ./app"
+  frontend:
+    build: ./frontend
+    restart: always
+    depends_on:
+      - server
+    ports:
+      - 80:80
